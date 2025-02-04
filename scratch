@@ -1,0 +1,51 @@
+### README
+
+This next.js app performs CRUD operation on Turso DB using GraphQL API and Drizzle ORM
+
+Connect Drizzle Studio
+Run `db:studio` "drizzle-kit studio"
+Access https://local.drizzle.studio
+
+Whenever you make changes to the schema, run db:generate:
+npm run db:generate
+Now apply these changes to the database with db:migrate:
+npm run db:migrate
+
+TOOD:
+
+Ensure the database is accessible from AWS Amplify.
+
+===
+migration needed to rename column text to status in turso DB
+
+4. (Optional) Migrate Database to Rename Column
+   If you want to rename the column in the database to status (recommended for clarity), you can do this with a database migration:
+
+sql
+Copy code
+ALTER TABLE issues RENAME COLUMN text TO status;
+Then, revert the column name in schema.ts:
+
+typescript
+Copy code
+status: text('status', { enum: ['backlog', 'todo', 'inprogress', 'done'] }) // Revert to "status"
+.default('backlog')
+.notNull(),
+This ensures consistency between the database and schema.
+===
+
+d. CORS Issues
+If the GraphQL API is being blocked due to cross-origin requests:
+
+Add a CORS middleware to your API route:
+typescript
+Copy code
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function middleware(req: NextRequest) {
+const res = NextResponse.next();
+res.headers.set('Access-Control-Allow-Origin', '\*');
+res.headers.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+res.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+return res;
+}

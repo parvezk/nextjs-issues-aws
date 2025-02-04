@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1736368148282,
+      "tag": "0000_brave_lockjaw",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1738687039690,
+      "tag": "0001_eager_tenebrous",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1738690927664,
+      "tag": "0002_pale_fabian_cortez",
+      "breakpoints": true
+    }
+  ]
+}
