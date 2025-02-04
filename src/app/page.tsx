@@ -14,32 +14,15 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { PlusIcon } from "lucide-react";
-import { CreateIssueMutation } from "@/gql/createIssueMutation";
 import { Provider, useQuery, useMutation } from "urql";
 import urqlClient from "@/lib/urqlClient";
 import "./globals.css";
 import "./issues.css";
-
-// TODO:move to gql fodler
-const ISSUES_QUERY = `
-  query IssuesForUser($email: String!) {
-    issuesForUser(email: $email) {
-      id
-      title
-      content
-      status
-    }
-  }
-`;
-
-const UPDATE_ISSUE_STATUS_MUTATION = `
-  mutation UpdateIssueStatus($id: String!, $status: String!) {
-    updateIssueStatus(id: $id, status: $status) {
-      id
-      status
-    }
-  }
-`;
+import {
+  ISSUES_QUERY,
+  CreateIssueMutation,
+  UPDATE_ISSUE_STATUS_MUTATION,
+} from "@/gql";
 
 const HomePage = () => {
   const [{ data, fetching, error }, replay] = useQuery({
@@ -47,9 +30,9 @@ const HomePage = () => {
     variables: { email: "admin@admin.com" },
   });
 
-  const [newIssueResult, createNewIssue] = useMutation(CreateIssueMutation);
+  const [_, createNewIssue] = useMutation(CreateIssueMutation);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [issueTitle, setTitleName] = useState("");
+  const [issueTitle, setIssueTitle] = useState("");
   const [issueDescription, setIssueDescription] = useState("");
   const [selectedStatus, setSelectedStatus] = useState<Record<string, string>>(
     {}
@@ -61,7 +44,7 @@ const HomePage = () => {
     const input = {
       title: issueTitle,
       content: issueDescription,
-      status: "BACKLOG", // Default status
+      // TODO: move to schema def
       userId: "12345qwert", // Replace with actual user ID
     };
 
@@ -76,7 +59,7 @@ const HomePage = () => {
   };
 
   const [, updateIssueStatus] = useMutation(UPDATE_ISSUE_STATUS_MUTATION);
-
+  // TODO: move out
   const handleStatusChange = (issueId: string, newStatus: string) => {
     updateIssueStatus(
       { id: issueId, status: newStatus },
@@ -168,7 +151,7 @@ const HomePage = () => {
                     className="w-full border-none outline-none focus:outline-none focus:border-none py-2 text-xl text-black/70"
                     placeholder="Issue Title"
                     value={issueTitle}
-                    onChange={(e) => setTitleName(e.target.value)}
+                    onChange={(e) => setIssueTitle(e.target.value)}
                   />
                 </div>
                 <div className="bg-white">
