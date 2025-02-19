@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildSchema, graphql } from "graphql";
-
-import { db } from "../../../lib/db";
 import resolvers from "./resolvers";
 import typeDefs from "./schema";
 
