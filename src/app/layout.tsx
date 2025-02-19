@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "nextjs-issues-aws",
+  title: "issues-app",
   description: "project issues app",
 };
 

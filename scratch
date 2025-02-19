@@ -1,5 +1,7 @@
 ### README
 
+https://github.com/parvezk/nextjs-issues-aws
+
 This next.js app performs CRUD operation on Turso DB using GraphQL API and Drizzle ORM
 
 Connect Drizzle Studio
@@ -15,7 +17,7 @@ TOOD:
 
 Ensure the database is accessible from AWS Amplify.
 
-===
+=========
 migration needed to rename column text to status in turso DB
 
 4. (Optional) Migrate Database to Rename Column
